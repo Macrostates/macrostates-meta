@@ -9,7 +9,7 @@ specification set from a composition manifest using an LLM implementer.
 2. Copy or write `composition.yaml` there. Select the packages for the new
    project and adapt its name, package sources, dependencies, authority, and
    reading order. `composition.yml` is also accepted; use only one filename.
-3. Copy this package's [project-kickoff.md](project-kickoff.md) resource to
+3. Copy this package's [project-kickoff.md](resources/project-kickoff.md) resource to
    `./specs/project-kickoff.md`. Copy the file itself, not the complete package
    directory or another project's Git metadata.
 4. Create `./specs/main.md` pointing the implementer to the copied resource.
@@ -47,14 +47,14 @@ project:
   entrypoint: main.md
 packages:
   - name: meta
-    version: 1.2.0
+    version: 1.3.0
     path: 000_meta/
     entrypoint: README.md
     source:
       type: git-subtree
       repository: git@github.com:Macrostates/macrostates-meta.git
       branch: main
-      tag: v1.2.0
+      tag: v1.3.0
       prefix: specs/000_meta
 authority:
   - definer-latest-explicit-instruction

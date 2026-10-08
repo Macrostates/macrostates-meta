@@ -16,7 +16,8 @@ in these rules also apply to that alternative spelling.
 
 For a new project whose packages have not yet been imported, read
 [Project kickoff](annex_project-kick-off.md). It explains how the definer copies
-the `project-kickoff.md` resource into `specs/` and points to it from `main.md`.
+the `resources/project-kickoff.md` resource to `specs/project-kickoff.md` and
+points to the copied file from `main.md`.
 The initial entrypoint may contain just that kickoff instruction and any known
 project intent. After kickoff, it must satisfy the normal composition rules
 below. This temporary starting state does not require copying package folders.

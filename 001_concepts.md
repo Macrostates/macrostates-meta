@@ -50,6 +50,14 @@ Annex documents should use `annex_<hyphenated-name>.md`, such as
 Annexes are not part of the mandatory core reading order, so they should not
 use numeric core prefixes.
 
+Packages may contain subdirectories to organize documents and supporting assets,
+for example `resources/`, `examples/`, or topic directories. These directories
+remain part of the same package; they do not become separate packages merely by
+being nested. Keep `package.yaml` at the package root, and resolve the declared
+entrypoint relative to that root. Use explicit relative paths in reading orders
+and links, updating them whenever files move. A directory does not change a
+file's authority or make a resource part of mandatory reading.
+
 Example:
 
 ```text
@@ -60,6 +68,8 @@ specs/
     001_concepts.md
     002_artifacts.md
     annex_special-case.md
+    resources/
+      project-kickoff.md
 ```
 
 ## Package resources
@@ -67,7 +77,8 @@ specs/
 A package may distribute reusable resources such as prompts, templates, or
 examples. Resources are assets to copy or invoke for a particular task; they are
 not package entrypoints or mandatory core reading. Give them descriptive names
-without core numbering or the annex prefix, such as `project-kickoff.md`.
+without core numbering or the annex prefix. Group reusable resource files under
+`resources/`, such as `resources/project-kickoff.md`.
 
 The package entrypoint should list resources separately and explain when to use
 them. A conditional annex may describe a resource's use for the definer. Merely

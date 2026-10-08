@@ -32,6 +32,6 @@ development projects.
 
 ## Resources
 
-- [Project kickoff instructions](project-kickoff.md): portable LLM instructions
+- [Project kickoff instructions](resources/project-kickoff.md): portable LLM instructions
   to copy into a new project's `specs/` directory and activate through its
   `main.md`. This resource is not part of the package's core reading order.
