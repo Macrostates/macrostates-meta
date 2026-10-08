@@ -17,7 +17,11 @@ in these rules also apply to that alternative spelling.
 For a new project whose packages have not yet been imported, read
 [Project kickoff](annex_project-kick-off.md). It explains how the definer copies
 the `resources/project-kickoff.md` resource to `specs/project-kickoff.md` and
-points to the copied file from `main.md`.
+points to the copied file from `main.md`. The short resource introduces Macrostates
+and its Meta clone source; the annex owns selection, validation and import steps.
+When no composition exists yet, the annex requires discussion of the definer's
+intent and technologies before preparing a compatible package selection. Read
+[Official packages](annex_official-packages.md) when discovering candidates.
 The initial entrypoint may contain just that kickoff instruction and any known
 project intent. After kickoff, it must satisfy the normal composition rules
 below. This temporary starting state does not require copying package folders.

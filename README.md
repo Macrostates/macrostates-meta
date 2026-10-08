@@ -19,6 +19,7 @@ development projects.
 - Project composition through root specification files, including an optional
   composition version whose policy is owned by the selected project rules.
 - Repository-specific directory specifications and their scope and authority.
+- Project kickoff and discovery of official specification packages.
 - Progressive disclosure for package documents.
 
 ## Reading order
@@ -30,10 +31,14 @@ development projects.
 ## Conditional annexes
 
 - [Project kickoff](annex_project-kick-off.md): read when preparing a new
-  project's specification set from a composition manifest.
+  project's specification set, including intent and package selection when no
+  composition manifest exists yet.
+- [Official packages](annex_official-packages.md): read when discovering packages
+  or explaining a proposed project composition.
 
 ## Resources
 
-- [Project kickoff instructions](resources/project-kickoff.md): portable LLM instructions
-  to copy into a new project's `specs/` directory and activate through its
-  `main.md`. This resource is not part of the package's core reading order.
+- [Project kickoff introduction](resources/project-kickoff.md): a short portable
+  Macrostates introduction and Meta clone source to copy into a new project's
+  `specs/` directory and activate through its `main.md`. The package's kickoff
+  annex owns the procedure. This resource is not part of the core reading order.

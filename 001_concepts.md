@@ -109,6 +109,11 @@ Packages should not reference other packages unless the dependency is explicit
 in `package.yaml`, the optional dependency is explicit in `package.yaml`, or
 the project-local specification entrypoint grants that relationship.
 
+Discovery catalogs may name, describe and link independent packages as selection
+information without declaring dependencies on them. Such references do not import
+their rules or select them for a project. Normative use of another package's
+concepts or requirements still needs the explicit relationship described above.
+
 ## Package paths
 
 Package paths are selected by the project composition.
