@@ -3,10 +3,13 @@
 A specification project combines multiple specification packages into one
 project-specific specification set.
 
-The project composition lives at the root of `specs/` and should contain:
+The project composition lives at the root of `.macrostates/specs/` and should
+contain:
 
 - `main.md`: the human-readable project specification entrypoint.
 - `composition.yaml`: the machine-readable package composition.
+- `composition.lock.yaml`: verified provenance and content inventory for imported
+  GitHub release snapshots, when that source mechanism is used.
 
 `composition.yaml` is the conventional filename. `composition.yml` is also
 accepted; use exactly one manifest per project. References to `composition.yaml`
@@ -14,17 +17,18 @@ in these rules also apply to that alternative spelling.
 
 ## Project kickoff
 
-For a new project whose packages have not yet been imported, read
-[Project kickoff](annex_project-kick-off.md). It explains how the definer copies
-the `resources/project-kickoff.md` resource to `specs/project-kickoff.md` and
-points to the copied file from `main.md`. The short resource introduces Macrostates
-and its Meta clone source; the annex owns selection, validation and import steps.
-When no composition exists yet, the annex requires discussion of the definer's
-intent and technologies before preparing a compatible package selection. Read
-[Official packages](annex_official-packages.md) when discovering candidates.
-The initial entrypoint may contain just that kickoff instruction and any known
-project intent. After kickoff, it must satisfy the normal composition rules
-below. This temporary starting state does not require copying package folders.
+For a new project whose packages have not yet been imported, read [Project
+kickoff](annex_project-kick-off.md). It explains how the definer copies the
+`resources/project-kickoff.md` resource to
+`.macrostates/specs/project-kickoff.md` and points to the copied file from
+`main.md`. The short resource introduces Macrostates and its Meta clone source;
+the annex owns selection, validation and import steps. When no composition
+exists yet, the annex requires discussion of the definer's intent and
+technologies before preparing a compatible package selection. Read [Official
+packages](annex_official-packages.md) when discovering candidates. The initial
+entrypoint may contain just that kickoff instruction and any known project
+intent. After kickoff, it must satisfy the normal composition rules below. This
+temporary starting state does not require copying package folders.
 
 ## Repository agent entrypoint
 
@@ -32,8 +36,8 @@ A repository may include a root `AGENTS.md` file for tools or agents that look
 for repository-level instructions before reading project files.
 
 When present, root `AGENTS.md` should be extremely small and reusable. It should
-point implementers to `specs/main.md` and tell them to follow the specification
-composition, reading order, and authority rules defined there.
+point implementers to `.macrostates/specs/main.md` and tell them to follow the
+specification composition, reading order, and authority rules defined there.
 
 Root `AGENTS.md` should not describe the project, duplicate package rules, or
 contain project-specific implementation instructions. Those belong in the
@@ -58,9 +62,9 @@ project.
 
 ## Project entrypoint
 
-The root `specs/main.md` describes the project-specific specification set. It
-should be readable by humans and implementers before they enter individual
-packages.
+The root `.macrostates/specs/main.md` describes the project-specific
+specification set. It should be readable by humans and implementers before they
+enter individual packages.
 
 It should include:
 
@@ -74,37 +78,41 @@ It should include:
 - The authority placement of directory-scoped specifications when present.
 - Any project-specific vocabulary or interpretation rules.
 
-The root `specs/main.md` may summarize package selection, but it should not
-duplicate the detailed rules inside each package. When package details matter,
-link or point to the package entrypoint.
+The root `.macrostates/specs/main.md` may summarize package selection, but it
+should not duplicate the detailed rules inside each package. When package
+details matter, link or point to the package entrypoint.
 
 ## Directory-scoped specifications
 
-Any implementation directory inside a repository may contain a `specs/`
-subdirectory with `main.md` as its entrypoint. This supports repositories with
-multiple packages, applications or other components without requiring a separate
-specification package or project composition for every directory.
+Any implementation directory inside a repository may contain a
+`.macrostates/specs/` subdirectory with `main.md` as its entrypoint. This
+supports repositories with multiple packages, applications or other components
+without requiring a separate specification package or project composition for
+every directory.
 
 For example:
 
 ```text
-specs/
-  main.md
-  composition.yaml
-  000_meta/
+.macrostates/
+  specs/
+    main.md
+    composition.yaml
+    000_meta/
 apps/
   reporting/
-    specs/
-      main.md
-      interfaces.md
+    .macrostates/
+      specs/
+        main.md
+        interfaces.md
     src/
 ```
 
-Here, `apps/reporting/specs/main.md` owns specifications only for
+Here, `apps/reporting/.macrostates/specs/main.md` owns specifications only for
 `apps/reporting/` and its descendants, not the entire repository. The scope root
-is the directory containing `specs/`, not `specs/` itself. A deeper directory may
-also have its own `specs/main.md`; each scope remains limited to its own root and
-descendants.
+is the directory containing `.macrostates/`, here `apps/reporting/`; neither
+`.macrostates/` nor its `specs/` directory is the scope root. A deeper directory
+may also have its own `.macrostates/specs/main.md`; each scope remains limited
+to its own root and descendants.
 
 ### Repository dependence and scope
 
@@ -112,9 +120,9 @@ Directory-scoped specifications belong to their enclosing repository project.
 They may rely on its selected packages, vocabulary and requirements, and are not
 portable, independently versioned specification packages. Do not list them as
 packages in `composition.yaml` or require `package.yaml` or a local composition
-manifest. Additional documents may be organized freely inside the local `specs/`;
-`main.md` must identify the scope, purpose and reading order, and link to the
-documents that carry requirements.
+manifest. Additional documents may be organized freely inside the local
+`.macrostates/specs/`; `main.md` must identify the scope, purpose and reading
+order, and link to the documents that carry requirements.
 
 Directory specifications must not define requirements, behavior, ownership,
 authority or required changes outside their scope root. They must not govern
@@ -127,9 +135,9 @@ span directories belong in specifications with an enclosing scope.
 
 ### Discovery and authority
 
-Before changing files, inspect the directories along the path
-from the enclosing project root to each target directory for `specs/main.md`.
-Read applicable entrypoints from outermost to innermost and follow their local
+Before changing files, inspect the directories along the path from the enclosing
+project root to each target directory for `.macrostates/specs/main.md`. Read
+applicable entrypoints from outermost to innermost and follow their local
 reading orders. Apply this also to new files and directories through their
 existing ancestors. A scope applies only to targets within that scope; do not
 load sibling scopes merely because they exist. Work spanning several scopes must
@@ -152,8 +160,9 @@ does not replace those rules.
 
 ## Composition metadata
 
-The root `specs/composition.yaml` records the same package composition in a
-structured form for validation, automation, and comparison across projects.
+The root `.macrostates/specs/composition.yaml` records the same package
+composition in a structured form for validation, automation, and comparison
+across projects.
 
 It should include:
 
@@ -165,6 +174,13 @@ It should include:
 - Package sources when relevant.
 - Project authority order when it should be machine-readable.
 - Project reading order when it should be machine-readable.
+
+New compositions using Meta 2 declare top-level `schema_version: 1`. This
+identifies the established composition field format independently of package
+versions. Record complete `reading_order` and `authority_order` lists using
+selected package names or relative package entrypoints, each package exactly once.
+Reading order does not establish authority. Adopt these declarations explicitly
+when migrating an unversioned composition to Meta 2.
 
 ### Composition version
 
@@ -257,36 +273,69 @@ packages:
       type: local
 ```
 
-Use `source.type: git-subtree` for packages distributed from their own Git
-repository and vendored into the current project:
+Use `source.type: github-archive` as the normal source for GitHub-hosted packages:
 
 ```yaml
 packages:
-  - name: process
-    version: 1.0.0
-    path: 001_process/
+  - name: meta
+    version: 2.0.0
+    path: 000_meta/
+    entrypoint: README.md
+    source:
+      type: github-archive
+      repository: https://github.com/Macrostates/macrostates-meta.git
+      tag: v2.0.0
+```
+
+Resolve the explicit release tag, verify its package metadata, then download a
+source archive at that resolved commit. Strip only the enclosing archive root.
+There is no build step or nested Git repository. Track all package files under
+the declared path and record canonical provenance and inventory in
+`.macrostates/specs/composition.lock.yaml`; see [Package integrity
+locks](annex_package-lock.md). Never substitute a moving branch head or `latest`
+for a release. Keep credentials out of source metadata.
+
+Imported external packages are immutable in a consuming project. Verify their
+file bytes, inventory and executable flags against the lock. Propose changes in
+the canonical package repository under an explicit specification request, then
+publish a new version and deliberately update consumers. Project-owned
+`source.type: local` packages remain editable. An explicitly authorized fork or
+source conversion must record its new provenance; rewriting a lock must never
+legitimize unexplained local edits.
+
+Git subtree remains an explicitly selected alternative, including established
+projects whose maintenance depends on subtree history:
+
+```yaml
+packages:
+  - name: meta
+    version: 2.0.0
+    path: 000_meta/
     entrypoint: README.md
     source:
       type: git-subtree
-      repository: https://github.com/example/specs-process.git
+      repository: https://github.com/Macrostates/macrostates-meta.git
       branch: main
-      tag: v1.0.0
-      prefix: specs/001_process
+      tag: v2.0.0
+      prefix: .macrostates/specs/000_meta
 ```
 
-For `git-subtree` sources, `repository`, `branch`, `tag`, and `prefix` are
-required. The `prefix` identifies the subtree path used by Git and should usually
-match the package path under `specs/`.
+For `github-archive`, `repository` and `tag` are required. For `git-subtree`,
+`repository`, `branch`, `tag` and `prefix` are required. The prefix is relative
+to the project Git root and must identify the exact installed package directory.
+Archive installation must not silently convert a subtree. Preserve established
+provenance during an authorized source or layout migration. Specification
+imports and vendored application/library source are separate mechanisms;
+changing one does not convert the other.
 
 `tag` selects the release to import and must be `v<version>`, matching the
 package's selected version. Resolve it explicitly as `refs/tags/<tag>` in the
 source repository, then verify the tagged `package.yaml` name and version.
-`branch` records the development branch used for checking future updates and
+For Git subtree, `branch` records the development branch used for checking future updates and
 publishing authorized changes; it does not select the installed release.
 
-Do not include `source.commit` in composition metadata. Commit IDs may be used
-transiently to verify a fetched tag or perform a subtree import, but must not be
-written back as an additional selector. A missing tag or mismatched package
+Do not include `source.commit` in composition metadata. Resolved commit IDs belong in the separate integrity lock or transient
+verification data, never as an additional composition selector. A missing tag or mismatched package
 version is a release metadata gap: report it and stop the affected import rather
 than falling back to a branch or inventing a release tag.
 
@@ -316,13 +365,14 @@ remain in the dependent package's `package.yaml`, not in the composition.
 
 ## Consistency
 
-The root `specs/main.md`, root `specs/composition.yaml`, and each package's
-`package.yaml` should agree about package names, versions and entrypoints.
-Dependency requirements are validated from each `package.yaml` against the
-composition's selected versions; missing composition dependency copies are not
-a metadata gap. Legacy copies, if present, must agree with package metadata.
-Package paths are owned by the project composition and should point to the local
-directory that contains the matching `package.yaml`.
+The root `.macrostates/specs/main.md`, root
+`.macrostates/specs/composition.yaml`, and each package's `package.yaml` should
+agree about package names, versions and entrypoints. Dependency requirements are
+validated from each `package.yaml` against the composition's selected versions;
+missing composition dependency copies are not a metadata gap. Legacy copies, if
+present, must agree with package metadata. Package paths are owned by the
+project composition and should point to the local directory that contains the
+matching `package.yaml`.
 
 Package source metadata is owned only by `composition.yaml`; it is not expected
 to appear in package-level `package.yaml`.
@@ -330,8 +380,8 @@ to appear in package-level `package.yaml`.
 When changing a package version, update:
 
 - The package's own `package.yaml`.
-- The package entry in root `specs/main.md`.
-- The package entry in root `specs/composition.yaml`.
+- The package entry in root `.macrostates/specs/main.md`.
+- The package entry in root `.macrostates/specs/composition.yaml`.
 - Any package-level dependency requirement that intentionally changes as a result.
 
 If these files disagree, treat it as a specification metadata gap. Ask the

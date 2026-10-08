@@ -9,3 +9,7 @@ the definer may have repository access that is unavailable through the website.
 
 Read the cloned package's `README.md`, follow its reading order, and use
 `annex_project-kick-off.md` to prepare this project's specification composition.
+
+Keep the project entrypoint, composition, numbered packages and integrity lock
+under `.macrostates/specs/`, tracked in Git. The selected Process package owns
+`.macrostates/implementation/`; application source and tooling stay outside it.

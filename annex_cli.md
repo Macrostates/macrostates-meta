@@ -42,13 +42,12 @@ formats that its documentation supports:
 commands within authorized setup or synchronization work; verification by itself
 does not authorize changing package selections or replacing local files.
 
-This Meta version retains the `specs/` and Git-subtree conventions in
-[Project composition](002_project-composition.md) and
-[Project kickoff](annex_project-kick-off.md). The initial CLI can inspect those
-compositions and establish verified integrity locks, but archive `install` does
-not maintain Git subtrees. Follow the Git-subtree procedure for their imports and
-updates. CLI support for another layout or source type does not automatically
-migrate an existing project or override its selected rules.
+Meta 2 uses `.macrostates/specs/` and tracked GitHub release snapshots by
+default. The CLI supports this layout and its integrity lock. Git-subtree
+selections remain an explicit alternative; `install` does not maintain them.
+Follow the selected source's import/update procedure. Tool availability never
+authorizes a layout or source migration; projects selecting older releases
+retain their selected rules.
 
 ## Manual verification
 

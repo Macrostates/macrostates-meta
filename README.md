@@ -36,6 +36,8 @@ development projects.
   composition manifest exists yet.
 - [Official packages](annex_official-packages.md): read when discovering packages
   or explaining a proposed project composition.
+- [Package integrity locks](annex_package-lock.md): read when importing or
+  verifying archive packages, or inspecting their provenance baseline.
 - [Macrostates CLI](annex_cli.md): read when preparing to use the CLI for setup,
   inspection or verification, or choosing equivalent manual checks.
 
@@ -43,7 +45,7 @@ development projects.
 
 - [Project kickoff introduction](resources/project-kickoff.md): a short portable
   Macrostates introduction and Meta clone source to copy into a new project's
-  `specs/` directory and activate through its `main.md`. The package's kickoff
+  `.macrostates/specs/` directory and activate through its `main.md`. The package's kickoff
   annex owns the procedure. This resource is not part of the core reading order.
 
 ## License

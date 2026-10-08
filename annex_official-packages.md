@@ -48,4 +48,4 @@ under the normal composition rules; they are not official Macrostates packages
 merely because a consuming project contains them.
 
 Return to [Project kickoff](annex_project-kick-off.md) to prepare the manifest and
-perform verified subtree imports after the definer's choices are established.
+perform verified release imports after the definer's choices are established.

@@ -1,5 +1,5 @@
 name: meta
-version: 1.8.0
-versioned_at: 2026-10-08 11:52
+version: 2.0.0
+versioned_at: 2026-10-08 12:08
 description: Specification package structure, metadata, and versioning rules.
 entrypoint: README.md

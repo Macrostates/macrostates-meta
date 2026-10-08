@@ -9,6 +9,25 @@ behavior, working rules, technology conventions, or project requirements.
 Specification packages are designed to be copied, versioned, and reused across
 projects.
 
+## Project layout
+
+Projects using Meta 2 place their composition and numbered package directories
+under `./.macrostates/specs/`. Process-owned implementation artifacts live
+beside them under `./.macrostates/implementation/`. Track these documents,
+installed packages and integrity locks in Git; a leading dot does not make them
+ignored. Source, tests and ordinary tooling/runtime configuration keep their
+normal locations outside `.macrostates/`.
+
+Standalone package repositories remain portable: their own `package.yaml`,
+`README.md`, core documents and resources stay at the package root. Only an
+installed copy lives in a consuming project's numbered package directory.
+
+Adopting this layout in an existing project is an explicit migration. Preserve
+local requirements and historical records, move both artifact directories,
+update pointers, links and subtree prefixes, then verify before committing.
+Do not leave competing compositions in both locations. Projects selecting older
+Meta releases retain those releases' rules; tools must not migrate them implicitly.
+
 ## Package structure
 
 Each package lives in its own subdirectory. The subdirectory path is local to a
@@ -61,7 +80,7 @@ file's authority or make a resource part of mandatory reading.
 Example:
 
 ```text
-specs/
+.macrostates/specs/
   030_example-package/
     package.yaml
     README.md
@@ -100,6 +119,8 @@ Required fields:
 
 Optional fields:
 
+- `schema_version`: metadata format identifier; absent or `1` identifies the
+  established format. Package release versions remain independent.
 - `dependencies`: other specification packages this package explicitly depends
   on, including version requirements.
 - `optional_dependencies`: other specification packages this package can
@@ -267,11 +288,11 @@ specification files combine packages.
 
 ## Directory-scoped specifications
 
-A repository directory may have its own `specs/main.md` to define what must be
-implemented inside that directory. These specifications are specific to the
-repository and depend on its enclosing project composition. They are not a
-reusable specification package or an independent project composition merely
-because they live in a `specs/` directory.
+A repository directory may have its own `.macrostates/specs/main.md` to define
+what must be implemented inside that directory. These specifications are
+specific to the repository and depend on its enclosing project composition. They
+are not a reusable specification package or an independent project composition
+merely because they live in a `.macrostates/specs/` directory.
 
 They do not require a package identity, `package.yaml`, independent package
 version, release tag or local composition manifest. Their authority comes from
