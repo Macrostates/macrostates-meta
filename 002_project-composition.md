@@ -338,6 +338,32 @@ If these files disagree, treat it as a specification metadata gap. Ask the
 definer or repair it during explicit specification work before relying on the
 inconsistent metadata.
 
+### Recommended validation tool
+
+The Macrostates CLI is strongly recommended for supported composition inspection
+and specification checks. Prefer it when an available version supports the
+project's selected package releases, metadata formats and source mechanism.
+Read [Macrostates CLI](annex_cli.md) when choosing commands, arranging tool use,
+or performing equivalent manual checks.
+
+CLI installation and use are optional. A project remains valid without the CLI;
+its absence or incomplete version support should not prevent work that can be
+verified manually. Apply the same specification requirements with either method,
+and report missing verification evidence rather than claiming an unchecked result.
+Use manual checks when the tool is unavailable or incompatible, or when the
+requested scope requires inspection beyond its coverage. Tool output supplements
+reading the selected specifications and applying their authority rules.
+
+The selected project rules own when verification is required. Match checks to
+the affected scope and reuse relevant evidence for unchanged files when its
+baseline remains valid. A new session or an unrelated code change alone does
+not require an exhaustive comparison of every installed package.
+
+CLI availability does not select packages, change their versions or authority,
+authorize file changes, or migrate a composition. Follow the existing setup and
+source rules unless the project explicitly adopts another supported convention.
+The CLI is an optional external tool, not a specification-package dependency.
+
 ## Package independence
 
 Project composition may combine independent packages, but it should not make a

@@ -27,7 +27,10 @@ This repository will follow Macrostates. For the requested project kickoff,
 follow [Project kickoff](project-kickoff.md).
 ```
 
-No Macrostates CLI installation is needed. The implementer needs filesystem and
+The Macrostates CLI is strongly recommended for the checks it supports, but its
+installation is optional. Read [Macrostates CLI](annex_cli.md) when using it or
+choosing manual equivalents. Follow the source and import procedure below;
+tool use does not replace it. The implementer needs filesystem and
 Git/subtree support, plus access to the selected package repositories.
 
 ## Obtain the Meta instructions

@@ -20,6 +20,7 @@ development projects.
   composition version whose policy is owned by the selected project rules.
 - Repository-specific directory specifications and their scope and authority.
 - Project kickoff and discovery of official specification packages.
+- Optional CLI assistance and manual specification validation.
 - Progressive disclosure for package documents.
 
 ## Reading order
@@ -35,6 +36,8 @@ development projects.
   composition manifest exists yet.
 - [Official packages](annex_official-packages.md): read when discovering packages
   or explaining a proposed project composition.
+- [Macrostates CLI](annex_cli.md): read when preparing to use the CLI for setup,
+  inspection or verification, or choosing equivalent manual checks.
 
 ## Resources
 
