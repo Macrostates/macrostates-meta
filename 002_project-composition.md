@@ -91,6 +91,40 @@ It should include:
 - Project authority order when it should be machine-readable.
 - Project reading order when it should be machine-readable.
 
+### Composition version
+
+Project metadata may include `project.version`, identifying the complete composed
+specification snapshot rather than any individual package or its implementation:
+
+```yaml
+project:
+  name: example
+  entrypoint: main.md
+  version: "spec-6.4.2"
+```
+
+Meta defines the field and its scope, not its versioning policy. A selected package
+or the explicit project contract defines whether the field is required, its format,
+bump rules and any relationship to an implementation version. The example prefix
+is illustrative; Meta does not require it for all compositions. Record the policy
+owner in the human-readable project entrypoint so an implementer can locate it.
+Meta does not depend on that policy package.
+
+The snapshot includes the project entrypoint, composition and selected package
+contents. File edits and package-selection changes must be assessed under the
+selected policy even when they do not change the effective project contract.
+The policy defines finalized revision boundaries; Git can identify intermediate
+work. A composition version must not replace package versions, dependency
+constraints or package source release selectors. Do not use `package_version`
+for the composition or derive it from the project-local package's version.
+
+If a composition version is summarized elsewhere, keep the summary synchronized
+with `project.version`. Do not infer an implementation's version or conformance
+merely from this field. Projects adopting a new policy must identify their
+transition and any pending implementation work explicitly.
+
+### Package selection
+
 Package entries should use this shape:
 
 ```yaml

@@ -16,7 +16,8 @@ development projects.
 - Package structure and metadata.
 - Package versioning and Git release tags.
 - Project-level package selection.
-- Project composition through root specification files.
+- Project composition through root specification files, including an optional
+  composition version whose policy is owned by the selected project rules.
 - Progressive disclosure for package documents.
 
 ## Reading order

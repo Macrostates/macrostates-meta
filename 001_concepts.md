@@ -187,7 +187,11 @@ repair it during explicit specification work.
 
 ## Versioning
 
-Package versions use `major.minor.patch`.
+Package versions use `major.minor.patch`. These rules version each reusable
+package independently. They do not define the version of an entire project
+composition or its implementation; those follow the project's selected policy.
+See [Composition version](002_project-composition.md#composition-version) for
+the optional composition field and its separate ownership.
 
 Update the package version when changing the package during explicit
 specification work:
