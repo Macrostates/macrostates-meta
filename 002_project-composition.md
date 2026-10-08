@@ -67,11 +67,84 @@ It should include:
 - The source or provenance of each package when relevant.
 - The authority order between packages.
 - The project-level reading order.
+- The authority placement of directory-scoped specifications when present.
 - Any project-specific vocabulary or interpretation rules.
 
 The root `specs/main.md` may summarize package selection, but it should not
 duplicate the detailed rules inside each package. When package details matter,
 link or point to the package entrypoint.
+
+## Directory-scoped specifications
+
+Any implementation directory inside a repository may contain a `specs/`
+subdirectory with `main.md` as its entrypoint. This supports repositories with
+multiple packages, applications or other components without requiring a separate
+specification package or project composition for every directory.
+
+For example:
+
+```text
+specs/
+  main.md
+  composition.yaml
+  000_meta/
+apps/
+  reporting/
+    specs/
+      main.md
+      interfaces.md
+    src/
+```
+
+Here, `apps/reporting/specs/main.md` owns specifications only for
+`apps/reporting/` and its descendants, not the entire repository. The scope root
+is the directory containing `specs/`, not `specs/` itself. A deeper directory may
+also have its own `specs/main.md`; each scope remains limited to its own root and
+descendants.
+
+### Repository dependence and scope
+
+Directory-scoped specifications belong to their enclosing repository project.
+They may rely on its selected packages, vocabulary and requirements, and are not
+portable, independently versioned specification packages. Do not list them as
+packages in `composition.yaml` or require `package.yaml` or a local composition
+manifest. Additional documents may be organized freely inside the local `specs/`;
+`main.md` must identify the scope, purpose and reading order, and link to the
+documents that carry requirements.
+
+Directory specifications must not define requirements, behavior, ownership,
+authority or required changes outside their scope root. They must not govern
+ancestor directories, siblings or repository-wide policy. This limit cannot be
+expanded by local wording, relative paths, linked documents or filesystem links.
+They may reference external interfaces and enclosing specifications as context,
+and define how their own component consumes or implements those interfaces;
+they must not impose obligations on the external component. Requirements that
+span directories belong in specifications with an enclosing scope.
+
+### Discovery and authority
+
+Before changing files, inspect the directories along the path
+from the enclosing project root to each target directory for `specs/main.md`.
+Read applicable entrypoints from outermost to innermost and follow their local
+reading orders. Apply this also to new files and directories through their
+existing ancestors. A scope applies only to targets within that scope; do not
+load sibling scopes merely because they exist. Work spanning several scopes must
+satisfy each applicable set for its own targets.
+
+Directory specifications have the same normative status as selected specification
+packages: they are definer-owned intended requirements, not implementation notes
+or advisory documentation. The enclosing project entrypoint defines their
+placement in its authority order. Local reading order does not establish priority
+over enclosing specifications or packages, and a local entrypoint cannot elevate
+its own authority or expand its scope. If the enclosing authority rules do not
+resolve a conflict, ask the definer rather than assuming the nearest directory
+wins. Existing enclosing requirements continue to apply within their scope.
+
+A directory specification does not by itself establish a subproject or grant an
+independent lifecycle. An explicitly separate project composition remains a
+distinct context, not a directory specification set. The selected project rules
+own subproject identification, lifecycle and integration; this directory mechanism
+does not replace those rules.
 
 ## Composition metadata
 
@@ -108,9 +181,12 @@ is illustrative; Meta does not require it for all compositions. Record the polic
 owner in the human-readable project entrypoint so an implementer can locate it.
 Meta does not depend on that policy package.
 
-The snapshot includes the project entrypoint, composition and selected package
-contents. File edits and package-selection changes must be assessed under the
-selected policy even when they do not change the effective project contract.
+The snapshot includes the project entrypoint, composition, selected package
+contents and applicable repository-specific directory specifications. Independently
+composed subprojects retain their own specification snapshots; the parent snapshot
+includes its requirements for their integration. File edits and package-selection
+changes must be assessed under the selected policy even when they do not change
+the effective project contract.
 The policy defines finalized revision boundaries; Git can identify intermediate
 work. A composition version must not replace package versions, dependency
 constraints or package source release selectors. Do not use `package_version`

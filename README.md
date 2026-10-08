@@ -18,6 +18,7 @@ development projects.
 - Project-level package selection and validation against package-owned dependencies.
 - Project composition through root specification files, including an optional
   composition version whose policy is owned by the selected project rules.
+- Repository-specific directory specifications and their scope and authority.
 - Progressive disclosure for package documents.
 
 ## Reading order

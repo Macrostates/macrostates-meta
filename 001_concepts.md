@@ -259,3 +259,17 @@ package selection.
 
 See `002_project-composition.md` for detailed rules on how root project
 specification files combine packages.
+
+## Directory-scoped specifications
+
+A repository directory may have its own `specs/main.md` to define what must be
+implemented inside that directory. These specifications are specific to the
+repository and depend on its enclosing project composition. They are not a
+reusable specification package or an independent project composition merely
+because they live in a `specs/` directory.
+
+They do not require a package identity, `package.yaml`, independent package
+version, release tag or local composition manifest. Their authority comes from
+the directory specification contract, not package metadata. See
+[Directory-scoped specifications](002_project-composition.md#directory-scoped-specifications)
+for entrypoint, boundary, discovery and authority rules.
