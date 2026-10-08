@@ -41,10 +41,13 @@ location before creating any project subtree:
   field and report that the legacy composition needs migration. Do not fall
   back to the declared branch if the tag is missing or create tags during kickoff.
 - Read `package.yaml` and the declared entrypoint at that revision. Verify the
-  package name, version, entrypoint, required dependencies, and optional
-  dependencies against the composition. Verify required dependencies are
-  selected and satisfy their constraints; check optional constraints only when
-  the optional package is selected. Report cycles or inconsistent metadata.
+  package name, version and entrypoint against the composition. Read required
+  and optional dependencies from that package's `package.yaml`, not from copies
+  in the composition. Verify required dependencies are selected and satisfy their
+  constraints; check optional constraints only when the optional package is
+  selected. Matching legacy composition copies may remain during migration, but
+  report mismatches and never use them to override package requirements. New or
+  migrated compositions omit these copies. Report cycles or inconsistent metadata.
 - Verify that authority and reading order reference selected packages and their
   entrypoints. Preserve their explicit order. If either is missing or ambiguous,
   ask the definer to supply it rather than infer authority from directory names.

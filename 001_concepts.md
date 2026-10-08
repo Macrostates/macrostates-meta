@@ -245,8 +245,10 @@ project-specific vocabulary.
 
 `composition.yaml` records the package selection in a structured form. It should
 list the specification packages the project uses, their versions, local
-paths, and any project-level dependency or authority information that should be
-machine-readable.
+paths, sources, and project authority information that should be machine-readable.
+Dependency requirements are owned by each selected package's `package.yaml`;
+validate them against the selected versions without repeating them in the
+composition.
 
 When working in a project, read this package definition first, then read the
 project-level `main.md`. Use `composition.yaml` when structured package

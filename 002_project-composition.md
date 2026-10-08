@@ -86,8 +86,6 @@ It should include:
 - Package paths.
 - Package entrypoints.
 - Package sources when relevant.
-- Package dependency requirements when relevant.
-- Package optional dependency requirements when relevant.
 - Project authority order when it should be machine-readable.
 - Project reading order when it should be machine-readable.
 
@@ -133,15 +131,25 @@ packages:
     version: 1.0.0
     path: 001_process/
     entrypoint: README.md
-    dependencies:
-      - name: meta
-        version: 1.0.0
-        constraint: compatible
 ```
 
 `composition.yaml` should not replace package-level `package.yaml` files. It
 records which package versions this project selected; each package still owns
-its own metadata.
+its own metadata. Required and optional dependency requirements belong only in
+the selected package's `package.yaml`. Do not duplicate `dependencies` or
+`optional_dependencies` in new or migrated composition entries.
+
+Read dependency requirements from every selected package's metadata. Every
+required dependency must be selected and satisfy its declared version constraint.
+Check an optional dependency's constraint only when that package is selected;
+an optional declaration does not select a package by itself. Report missing
+dependencies, incompatible versions, cycles and inconsistent package metadata.
+
+For backward compatibility, existing compositions may retain matching dependency
+copies during migration. These copies are non-authoritative and must never
+override package metadata. Report mismatches rather than choosing one silently.
+Migration removes those redundant fields after verifying package requirements
+against the selected versions; it does not edit package requirements.
 
 The package `path` may include ordering prefixes, grouping prefixes, or any
 other project-local browsing convention. The path is the only field needed to
@@ -222,17 +230,18 @@ If a package is intended to be distributed from an external source but that
 source does not exist yet, omit `source` until the source is real. Do not invent
 placeholder repositories.
 
-When a package has optional dependencies, `composition.yaml` should record them
-under `optional_dependencies` with the same entry shape used for required
-dependencies. A project may select both the package and its optional dependency
-when it wants their integration rules to apply.
+A project may select both a package and its optional dependency when it wants
+their integration rules to apply. The optional requirement and its constraint
+remain in the dependent package's `package.yaml`, not in the composition.
 
 ## Consistency
 
 The root `specs/main.md`, root `specs/composition.yaml`, and each package's
-`package.yaml` should agree about package names, versions, entrypoints, and
-dependency constraints, including optional dependency constraints. Package
-paths are owned by the project composition and should point to the local
+`package.yaml` should agree about package names, versions and entrypoints.
+Dependency requirements are validated from each `package.yaml` against the
+composition's selected versions; missing composition dependency copies are not
+a metadata gap. Legacy copies, if present, must agree with package metadata.
+Package paths are owned by the project composition and should point to the local
 directory that contains the matching `package.yaml`.
 
 Package source metadata is owned only by `composition.yaml`; it is not expected
@@ -243,7 +252,7 @@ When changing a package version, update:
 - The package's own `package.yaml`.
 - The package entry in root `specs/main.md`.
 - The package entry in root `specs/composition.yaml`.
-- Any dependency requirement that intentionally changes as a result.
+- Any package-level dependency requirement that intentionally changes as a result.
 
 If these files disagree, treat it as a specification metadata gap. Ask the
 definer or repair it during explicit specification work before relying on the

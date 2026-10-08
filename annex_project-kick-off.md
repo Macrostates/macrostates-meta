@@ -7,7 +7,7 @@ specification set from a composition manifest using an LLM implementer.
 
 1. Create a `specs/` directory in the new project.
 2. Copy or write `composition.yaml` there. Select the packages for the new
-   project and adapt its name, package sources, dependencies, authority, and
+   project and adapt its name, package selection, sources, authority, and
    reading order. `composition.yml` is also accepted; use only one filename.
 3. Copy this package's [project-kickoff.md](resources/project-kickoff.md) resource to
    `./specs/project-kickoff.md`. Copy the file itself, not the complete package
@@ -76,8 +76,9 @@ kickoff performs automatically. The example's tag must exist before use.
 Do not carry another project's local package into the composition unless it is
 intended for the new project. A `local` package requires its files or a separate
 request to author its specifications. An entry with no source cannot be fetched.
-Remove unwanted packages from dependencies, authority, and reading order too;
-do not remove a package still required by another selected package.
+Remove unwanted packages from the selection, authority, and reading order. Read
+dependency requirements from each selected package's `package.yaml`; do not copy
+them into the composition or remove a package still required by another selection.
 
 ## Expected result
 
