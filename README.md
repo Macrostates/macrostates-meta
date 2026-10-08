@@ -42,3 +42,10 @@ development projects.
   Macrostates introduction and Meta clone source to copy into a new project's
   `specs/` directory and activate through its `main.md`. The package's kickoff
   annex owns the procedure. This resource is not part of the core reading order.
+
+## License
+
+This specification package, including its documentation, metadata, and bundled
+resources, is licensed under the [MIT License](LICENSE).
+
+Copyright (c) 2026 Lucas Lopez.
